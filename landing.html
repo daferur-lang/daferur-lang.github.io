@@ -819,7 +819,10 @@
             </div>
             <div class="reveal">
                 <div class="form-wrap">
-                    <form id="contact-form" action="https://formsubmit.co/ajax/daferur@gmail.com" method="POST">
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="e31bceed-aec4-4cbf-b555-d7c59a361381">
+                        <input type="hidden" name="subject" value="Nueva consulta — Ave Fénix13">
+                        <input type="hidden" name="from_name" value="Ave Fénix13 — Landing">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="name">Tu nombre</label>
@@ -834,10 +837,7 @@
                                 <textarea id="idea" name="idea" placeholder="Cuéntame tu idea: qué problema resuelve, para quién es, qué funciones necesitas..."></textarea>
                             </div>
                         </div>
-                        <input type="hidden" name="_subject" value="Nueva consulta — Ave Fénix13">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="text" name="_honey" style="display:none">
+                        <input type="checkbox" name="botcheck" style="display:none">
                         <button type="submit" class="form-submit">Enviar consulta →</button>
                         <p class="form-note">🔒 Tus datos solo se usan para responderte. Nunca spam.</p>
                     </form>
