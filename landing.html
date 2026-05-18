@@ -842,9 +842,49 @@
                         <p class="form-note">🔒 Tus datos solo se usan para responderte. Nunca spam.</p>
                     </form>
                     <div style="text-align:center;margin-top:18px;padding-top:18px;border-top:1px solid rgba(200,134,10,.2);">
-                        <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">¿Prefieres email directo?</p>
-                        <a href="mailto:daferur@gmail.com?subject=Consulta%20%E2%80%94%20Ave%20F%C3%A9nix13&body=Hola%2C%0A%0AMe%20gustar%C3%ADa%20contactar%20contigo%20sobre%3A%0A%0A" style="display:inline-flex;align-items:center;gap:8px;color:var(--gold-dark);font-weight:600;text-decoration:none;font-size:14px;padding:10px 18px;border:1.5px solid var(--gold);border-radius:8px;transition:background .15s;" onmouseover="this.style.background='rgba(200,134,10,0.08)'" onmouseout="this.style.background='transparent'">✉️ daferur@gmail.com</a>
+                        <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">¿Prefieres escribirme directamente?</p>
+                        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;">
+                            <button type="button" id="copy-email-btn" onclick="copyEmailToClipboard()" style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);color:var(--gold-dark);font-weight:600;font-size:14px;padding:10px 16px;border:1.5px solid var(--gold);border-radius:8px;cursor:pointer;font-family:var(--mono,monospace);transition:all .15s;" onmouseover="this.style.background='rgba(200,134,10,0.12)'" onmouseout="this.style.background='var(--surface-2)'">
+                                <span id="copy-email-text">📋 daferur@gmail.com</span>
+                            </button>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=daferur@gmail.com&su=Consulta%20%E2%80%94%20Ave%20F%C3%A9nix13&body=Hola%2C%0A%0AMe%20gustar%C3%ADa%20contactar%20contigo%20sobre%3A%0A%0A" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:var(--gold-dark);text-decoration:none;font-size:13px;font-weight:500;padding:10px 14px;border:1.5px solid transparent;border-radius:8px;transition:background .15s;" onmouseover="this.style.background='rgba(200,134,10,0.08)'" onmouseout="this.style.background='transparent'">Abrir en Gmail →</a>
+                        </div>
+                        <p id="copy-feedback" style="font-size:13px;color:#1d8a4a;margin-top:10px;opacity:0;transition:opacity .25s;font-weight:600;">✓ Email copiado al portapapeles</p>
                     </div>
+                    <script>
+                        function copyEmailToClipboard() {
+                            const email = 'daferur@gmail.com';
+                            const feedback = document.getElementById('copy-feedback');
+                            const showOk = () => {
+                                feedback.textContent = '✓ Email copiado al portapapeles';
+                                feedback.style.color = '#1d8a4a';
+                                feedback.style.opacity = '1';
+                                setTimeout(() => { feedback.style.opacity = '0'; }, 2500);
+                            };
+                            const showFail = () => {
+                                feedback.textContent = 'No se pudo copiar. El email es: ' + email;
+                                feedback.style.color = '#8B1A1A';
+                                feedback.style.opacity = '1';
+                            };
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                navigator.clipboard.writeText(email).then(showOk).catch(() => {
+                                    try {
+                                        const ta = document.createElement('textarea');
+                                        ta.value = email; document.body.appendChild(ta);
+                                        ta.select(); document.execCommand('copy');
+                                        document.body.removeChild(ta); showOk();
+                                    } catch { showFail(); }
+                                });
+                            } else {
+                                try {
+                                    const ta = document.createElement('textarea');
+                                    ta.value = email; document.body.appendChild(ta);
+                                    ta.select(); document.execCommand('copy');
+                                    document.body.removeChild(ta); showOk();
+                                } catch { showFail(); }
+                            }
+                        }
+                    </script>
                     <div class="form-success" id="form-success">
                         🎉 ¡Mensaje recibido!<br>
                         <span style="font-size:14px;font-family:var(--sans);color:var(--muted);display:block;margin-top:8px;">Te contestamos en menos de 48 horas.</span>
